@@ -5,16 +5,17 @@ import {team, teamsNames} from './teams.js'
 
 const  league= []
 teamsNames.forEach(teamName =>{
-    console.log(teamName)
+    //console.log(teamName)
     team.name = teamName;
     league.push(team)
 })
 
-//console.log(league)
+const numberOfTeams = teamsNames.length;
 
 function start() {
     //fase de grups
-    leguesCreator(howManyLegues())
+    howManyLeagues(numberOfTeams);
+    //leguesCreator(howManyLegues())
         //definir número de lligues que hi haurà (equips/4)
         //crear les lligues i omplirles amb els equips shuffle i slide
         //algoritme de tots contra tots 
@@ -33,4 +34,13 @@ function start() {
 }
 
 start();
-
+const groups = 8; 
+function leaguesNames(groups) {
+    const leagueNames = [];
+    for (let i = 65; i < groups + 65; i ++){
+        leagueNames.push(String.fromCharCode(i));
+    }
+    console.log (`aux ${leagueNames} ` );
+    return leagueNames;
+}
+const names = leaguesNames(groups);
