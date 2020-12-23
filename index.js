@@ -1,15 +1,12 @@
 //exporto objecte team
 import {team, teamsNames} from './teams.js'
+//import teamsNames from './teams.js'
+//import League from './league.js'
 
 //creo la lliga array d'objectes i afegeixo l'objete team
 
-const  league= []
-teamsNames.forEach(teamName =>{
-    //console.log(teamName)
-    team.name = teamName;
-    league.push(team)
-})
 
+/*
 const numberOfTeams = teamsNames.length;
 
 function start() {
@@ -44,3 +41,17 @@ function leaguesNames(groups) {
     return leagueNames;
 }
 const names = leaguesNames(groups);
+*/
+
+
+
+const groupA = [];
+
+for (let i = 0; i < 4; i++ ){
+    const teamsPerGroup = Object.assign({}, team)
+    teamsPerGroup.name = teamsNames[i]; 
+    groupA.push(teamsPerGroup)
+}
+
+console.table(groupA)
+
