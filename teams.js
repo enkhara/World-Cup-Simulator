@@ -1,13 +1,13 @@
 
 
-export const team = {
-    name: null,
-    pointsPerWin: 0,
-    pointsPerDraw: 0,
-    pointsPerLose: 0,
-    goalsFor: 0,
-    goalsAgainst: 0
-};
+// export const team = {
+//     name: null,
+//     pointsPerWin: 0,
+//     pointsPerDraw: 0,
+//     pointsPerLose: 0,
+//     goalsFor: 0,
+//     goalsAgainst: 0
+// };
 
 
 export const teamsNames = [
