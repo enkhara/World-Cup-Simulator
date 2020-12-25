@@ -1,5 +1,6 @@
 import {team, teamsNames} from './teams.js'
 
+const _NUMBEROFTEAMSPERGROUP_ = 4;
 
 Array.prototype.shuffle = function()
 {
@@ -13,5 +14,8 @@ Array.prototype.shuffle = function()
 	}
 	return this;
 }
-
+//barrejem equips
+teamsNames.shuffle();
+//calculem número de grups que shan de crear
+const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 
