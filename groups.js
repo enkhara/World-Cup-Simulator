@@ -1,4 +1,5 @@
-import {team, teamsNames} from './teams.js'
+import {teamsNames} from './teams.js'
+
 
 const _NUMBEROFTEAMSPERGROUP_ = 4;
 
@@ -15,33 +16,48 @@ Array.prototype.shuffle = function()
 	return this;
 }
 
+export const group = {
+    name: null,
+    teams: [],
+    schedule: [],
+    }
+
 //barrejem equips
 teamsNames.shuffle();
 //calculem número de grups que shan de crear
 const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
-const groups = [];
 
 
 //crea un grup amb 4 equips
+// function teamsGroup(index) {
+//     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
+//     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
+
+//     const group = teamsNames.slice(indexSliceInit, indexSliceEnd);
+
+//     return group;
+// }
+
 function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
 
-    const group = teamsNames.slice(indexSliceInit, indexSliceEnd);
-
-    return group;
+    const groupTeams = Object.assign({}, group);
+    groupTeams.teams = teamsNames.slice(indexSliceInit, indexSliceEnd);
+    //codigo ascii para las letras mayúsculas
+    groupTeams.name = String.fromCharCode( index + 65 );
+    
+    return groupTeams;
 }
 
+
 //llena los grupos con en numero de equipos definido
-export function creatorGroups(){
+export default function creatorGroups(groups){
+
     for (let i = 0 ; i < numberOfGroups; i++ ) {
         groups.push(teamsGroup(i));
     } 
     return groups;
 }
-
-creatorGroups();
-
-console.table(groups)
 
 
