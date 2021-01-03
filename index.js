@@ -1,6 +1,6 @@
 //exporto objecte team
 import {team, teamsNames} from './teams.js'
-import creatorGroups from './groups.js'
+import creatorGroups, { group } from './groups.js'
 import {leagueTeamsCreator, scheduleMatches} from './league.js'
 import {showGroupsAndTeams} from './consoleLog.js'
 
@@ -14,10 +14,10 @@ function start() {
     
     creatorGroups(groups);
     scheduleMatches(groups);
-    //groups.forEach(group => console.log(group.schedule))
-    //console.log(groups);
     
-    //showGroupsAndTeams(groups);
+    showGroupsAndTeams(groups);
+    
+    
 
 }
 
