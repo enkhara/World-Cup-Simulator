@@ -1,7 +1,7 @@
 import {teamsNames} from './teams.js'
 
 
-const _NUMBEROFTEAMSPERGROUP_ = 4;
+export const _NUMBEROFTEAMSPERGROUP_ = 4;
 
 Array.prototype.shuffle = function()
 {
