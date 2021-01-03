@@ -6,11 +6,13 @@ export function showGroupsAndTeams(groups){
         console.log(`\nGroup ${group.name}\n---------------------`)
         group.teams.forEach(team  =>{
             console.log(team)
-        })
-        for (let i = 1; i <= 3; i++){
-            console.log('\nJornada\n', i)
-            console.log(`${group.schedule.match}`)
-        }
-        
-    })
+        });
+        for (let i = 0; i <= 2; i++){
+            console.log(`\nJornada ${i+1}:`)
+            //console.log(`${group.schedule[i]}`)
+            group.schedule[i].forEach(match =>{
+                console.log(`- ${match.localTeam} vs ${match.awayTeam}`);
+            });
+        };
+    });
 }
