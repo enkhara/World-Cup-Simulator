@@ -1,10 +1,12 @@
-import {team, teamsNames} from './teams.js'
+import { group, _NUMBEROFTEAMSPERGROUP_} from './groups.js';
+import {team, teamsNames} from './teams.js';
+import {leagueTeams} from './index.js';
 
 const match ={
     localTeam: null,
     awayTeam: null,
-    goalsHome: 0,
-    goalsAway: 0
+    localGoals: 0,
+    awayGoals: 0
 }
 
 //omplim l'array lliga amb l'objecte team amb la informació 
@@ -105,7 +107,6 @@ function setScheduleWithTeamsNames(group){
     }
 }
 
-
 // creen la planificació de partits per cada grup
 export function scheduleMatches(groups){ 
     groups.forEach(group =>{
@@ -115,7 +116,71 @@ export function scheduleMatches(groups){
 
     })    
 }
+//generador de gols
+function scoreGoals(){
+    return Math.round(Math.random() * 5);
+}
 
+function findTeamInLeague(name){
+    return leagueTeams.find(team => team.name === name)
+}
+
+function updateGoals(team, goalsFor, goalsAgainst){
+    
+    team.goalsFor += goalsFor;
+    team.goalsAgainst += goalsAgainst;
+}
+    
+function leagueUpdateScore(matchResult){
+    const pointsPerWin = 3;
+    const pointsPerDraw = 1;
+    const pointsPerLose = 0;
+
+    const localTeam= findTeamInLeague(matchResult.localTeam);
+    const awayTeam= findTeamInLeague(matchResult.awayTeam);
+
+    updateGoals(localTeam, matchResult.localGoals, matchResult.awayGoals);
+    updateGoals(awayTeam, matchResult.awayGoals, matchResult.localGoals);
+
+    if (matchResult.localGoals < matchResult.awayGoals){
+        awayTeam.points += pointsPerWin; 
+    }else if(matchResult.localGoals > matchResult.awayGoals){
+        localTeam.points += pointsPerWin;
+    }else{
+        localTeam.points += pointsPerDraw;
+        awayTeam.points += pointsPerDraw;
+    }
+}
+
+// es juguen els partits establerts per cada dia
+function playMatchesPerDay(matchesPerDay){
+    for (let j = 0; j < matchesPerDay.length; j++){
+        const localGoals = scoreGoals();
+        const awayGoals = scoreGoals();
+
+        matchesPerDay[j].localGoals = localGoals;
+        matchesPerDay[j].awayGoals = awayGoals;
+
+        leagueUpdateScore(matchesPerDay[j]);
+    }
+    console.log('per jornada')
+    console.table(leagueTeams)
+    
+        
+}
+//es juga la fase de grups
+export function startGroupStage(groups){
+    
+        for (let i = 0; i < _NUMBEROFTEAMSPERGROUP_ -1; i++){
+            groups.forEach(group => {
+                playMatchesPerDay(group.schedule[i]);
+                console.table(group.schedule[i]);
+            });
+        }
+        console.table(leagueTeams)
+    
+
+}
 // for (let i = 0; i < 4; i++ ){
 //     const teamsPerGroup = Object.assign({}, team)
 //     teamsPerGroup.name = teamsNames[i]; 
