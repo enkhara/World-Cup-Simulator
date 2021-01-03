@@ -7,7 +7,7 @@ export function showGroupsAndTeams(groups){
         group.teams.forEach(team  =>{
             console.log(team)
         });
-        for (let i = 0; i <= group.teams.length-2; i++){
+        for (let i = 0; i < group.teams.length - 1; i++){
             console.log(`\nJornada ${i+1}:`)
             //console.log(`${group.schedule[i]}`)
             group.schedule[i].forEach(match =>{
@@ -15,4 +15,8 @@ export function showGroupsAndTeams(groups){
             });
         };
     });
+}
+
+export function showMatchesPerDay(groups,index){
+
 }
