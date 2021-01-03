@@ -1,11 +1,11 @@
 //exporto objecte team
 import {team, teamsNames} from './teams.js'
 import creatorGroups, { group } from './groups.js'
-import {leagueTeamsCreator, scheduleMatches} from './league.js'
-import {showGroupsAndTeams} from './consoleLog.js'
+import {leagueTeamsCreator, scheduleMatches, startGroupStage} from './league.js'
+import {showGroupsAndTeams, showMatchesPerDay} from './consoleLog.js'
 
 const groups = [];
-const leagueTeams = [];
+export const leagueTeams = [];
 function start() {
 
     leagueTeamsCreator(leagueTeams);
@@ -16,7 +16,11 @@ function start() {
     scheduleMatches(groups);
     
     showGroupsAndTeams(groups);
-    
+
+    //empiezan los partidos por jornada
+    //jugar partido
+    startGroupStage(groups);
+
     
 
 }
