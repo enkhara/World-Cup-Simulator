@@ -1,6 +1,7 @@
 import { group, _NUMBEROFTEAMSPERGROUP_} from './groups.js';
 import {team, teamsNames} from './teams.js';
 import {leagueTeams} from './index.js';
+import {showMatchesAndStandings} from './consoleLog.js';
 
 const match ={
     localTeam: null,
@@ -19,46 +20,6 @@ export function leagueTeamsCreator(leagueTeams) {
     })
     return (leagueTeams);
 }
-// 3 jornades i 2 partits/ jornada
-// function allAgainstAll(group){
-//     const maxRow = group.teams.length - 2;
-//     const maxColumn = group.teams.length / 2;
-
-    
-//     const matchesPerDay = [];
-    
-//     const lasTeamNamePosition = group.teams.length - 1;
-//     for( let row = 0; row < maxRow; row++ ) {
-//         let teamNamePosition = 0;
-//         for (let column = 0; column < maxColumn; column++){
-//             const matchSchedule = Object.assign({}, match);
-//             if (teamNamePosition >= lasTeamNamePosition){
-//                 teamNamePosition = 0;
-//             }
-//             matchSchedule.homeTeam = group.teams[teamNamePosition];
-//             matchSchedule.awayTeam = group.teams[lasTeamNamePosition];
-//             //console.log(matchSchedule)
-//             //matchesPerDay[row][column]= matchSchedule
-//             matchesPerDay.push(matchSchedule)
-//             teamNamePosition++;
-
-//         }group.schedule.push(matchesPerDay);
-//     }
-    //console.log('ALL against ALL', group.schedule)
-//}
-// function allAgainstAllAlgorithm(group){
-//     group.schedule = []
-    
-//     for (let i = 0; i < group.teams.length-1; i++){
-//         const matchDay = [];
-//         for( let j = 0; j <group.teams.length/2; j++){
-//             const matches = ['localTeam', 'AwayTeam'];
-//             matchDay.push(matches);
-
-        
-//         }group.schedule.push(matchDay)
-//     }
-// }
 
 //omplim l'array schedule amb l'objecte match buit
 function allAgainstAll(group){
@@ -121,16 +82,18 @@ function scoreGoals(){
     return Math.round(Math.random() * 5);
 }
 
+//busquem l'equip dins l'array leagueTeam
 function findTeamInLeague(name){
     return leagueTeams.find(team => team.name === name)
 }
 
+//actualitzem els gols de cada equip
 function updateGoals(team, goalsFor, goalsAgainst){
-    
     team.goalsFor += goalsFor;
     team.goalsAgainst += goalsAgainst;
 }
-    
+
+//actualitzem la puntuació de cada equip per partit
 function leagueUpdateScore(matchResult){
     const pointsPerWin = 3;
     const pointsPerDraw = 1;
@@ -163,28 +126,17 @@ function playMatchesPerDay(matchesPerDay){
 
         leagueUpdateScore(matchesPerDay[j]);
     }
-    console.log('per jornada')
-    console.table(leagueTeams)
-    
-        
 }
+
 //es juga la fase de grups
 export function startGroupStage(groups){
-    
-        for (let i = 0; i < _NUMBEROFTEAMSPERGROUP_ -1; i++){
-            groups.forEach(group => {
-                playMatchesPerDay(group.schedule[i]);
-                console.table(group.schedule[i]);
-            });
-        }
-        console.table(leagueTeams)
-    
-
+    for (let i = 0; i < _NUMBEROFTEAMSPERGROUP_ -1; i++){
+        groups.forEach(group => {
+            playMatchesPerDay(group.schedule[i]);
+            showMatchesAndStandings(group, leagueTeams,i);
+        });
+    }
 }
-// for (let i = 0; i < 4; i++ ){
-//     const teamsPerGroup = Object.assign({}, team)
-//     teamsPerGroup.name = teamsNames[i]; 
-//     groupA.push(teamsPerGroup)
-// }
+
 
 
