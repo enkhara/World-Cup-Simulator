@@ -1,7 +1,7 @@
-import { group, _NUMBEROFTEAMSPERGROUP_} from './groups.js';
-import {team, teamsNames} from './teams.js';
-import {leagueTeams} from './index.js';
-import {showMatchesAndStandings} from './consoleLog.js';
+import { _NUMBEROFTEAMSPERGROUP_ } from './groups.js';
+import { team, teamsNames } from './teams.js';
+import { groups } from './index.js';
+import { showMatchesAndStandings } from './consoleLog.js';
 
 const match ={
     localTeam: null,
@@ -51,14 +51,14 @@ function setScheduleWithTeamsNames(group){
                 indexTeamsDesc = group.teams.length - 2;
             }
             if (i % 2 != 0 && j == 0){
-                group.schedule[i][j].localTeam = group.teams[lasTeam];
-                group.schedule[i][j].awayTeam =  group.teams[indexTeamsAsc];
+                group.schedule[i][j].localTeam = group.teams[lasTeam].name;
+                group.schedule[i][j].awayTeam =  group.teams[indexTeamsAsc].name;
             }else if(j == 0){
-                group.schedule[i][j].localTeam = group.teams[indexTeamsAsc];
-                group.schedule[i][j].awayTeam =  group.teams[lasTeam];
+                group.schedule[i][j].localTeam = group.teams[indexTeamsAsc].name;
+                group.schedule[i][j].awayTeam =  group.teams[lasTeam].name;
             }else{
-                group.schedule[i][j].localTeam = group.teams[indexTeamsAsc];
-                group.schedule[i][j].awayTeam = group.teams[indexTeamsDesc];
+                group.schedule[i][j].localTeam = group.teams[indexTeamsAsc].name;
+                group.schedule[i][j].awayTeam = group.teams[indexTeamsDesc].name;
             }
             if (j != 0){
                 indexTeamsDesc --;
@@ -69,7 +69,7 @@ function setScheduleWithTeamsNames(group){
 }
 
 // creen la planificació de partits per cada grup
-export function scheduleMatches(groups){ 
+export function scheduleMatches(){ 
     groups.forEach(group =>{
 
         allAgainstAll(group);
@@ -83,8 +83,27 @@ function scoreGoals(){
 }
 
 //busquem l'equip dins l'array leagueTeam
-function findTeamInLeague(name){
-    return leagueTeams.find(team => team.name === name)
+function findTeamInGroup(name){
+    // groups.forEach(group =>{
+    //     const aux = group.teams.find(team => team.name === name)
+    //     console.log(aux)
+    //     return aux
+    //     //return group.teams.find(team => team.name === name)
+    // });
+    let teamFound = null
+    groups.forEach(group =>{
+        group.teams.forEach(team =>{
+            if (team.name === name){
+                teamFound = team
+                
+
+            }
+        })
+        
+    })
+    return teamFound
+    
+    //return groups.find(group => group.teams.name === name)
 }
 
 //actualitzem els gols de cada equip
@@ -94,13 +113,13 @@ function updateGoals(team, goalsFor, goalsAgainst){
 }
 
 //actualitzem la puntuació de cada equip per partit
-function leagueUpdateScore(matchResult){
+function groupUpdateScore(matchResult){
     const pointsPerWin = 3;
     const pointsPerDraw = 1;
     const pointsPerLose = 0;
 
-    const localTeam= findTeamInLeague(matchResult.localTeam);
-    const awayTeam= findTeamInLeague(matchResult.awayTeam);
+    const localTeam= findTeamInGroup(matchResult.localTeam);
+    const awayTeam= findTeamInGroup(matchResult.awayTeam);
 
     updateGoals(localTeam, matchResult.localGoals, matchResult.awayGoals);
     updateGoals(awayTeam, matchResult.awayGoals, matchResult.localGoals);
@@ -124,19 +143,132 @@ function playMatchesPerDay(matchesPerDay){
         matchesPerDay[j].localGoals = localGoals;
         matchesPerDay[j].awayGoals = awayGoals;
 
-        leagueUpdateScore(matchesPerDay[j]);
+        groupUpdateScore(matchesPerDay[j]);
     }
 }
 
+function getLeagueTeamsPerGroup(group){
+
+    const index = group.name.charCodeAt(0);
+    const indexSliceInit = index - 65;
+    const indexSliceEnd = indexSliceInit + 4;
+
+    const arrayOrdered = leagueTeams.slice(indexSliceInit, indexSliceEnd)
+
+    arrayOrdered.sort(function (teamA, teamB) {
+        if (teamA.points > teamB.points){
+            return -1
+        }else if (teamA.points < teamB.points){
+            return 1
+        }else{
+            // group.schedule.forEach(match =>{
+            //     if((match.localTeam == teamA && match.localTeam == teamB) || (match.localTeam == teamB && match.localTeam == teamA))
+            //     console.log('partido de empate', match)
+            // })
+                //
+            //}el equipo ganadar en encuentro directro
+            //else if {
+
+            
+            //mejor diferencia de goles tenga
+            //else
+            //orden alfabético
+            return 0
+        }
+    })
+
+
+
+    return arrayOrdered
+}
+
 //es juga la fase de grups
-export function startGroupStage(groups){
+export function startGroupStage(){
     for (let i = 0; i < _NUMBEROFTEAMSPERGROUP_ -1; i++){
         groups.forEach(group => {
             playMatchesPerDay(group.schedule[i]);
-            showMatchesAndStandings(group, leagueTeams,i);
+            getRanking(group)
+            showMatchesAndStandings(group,i);
         });
     }
 }
 
+function checkDirectMatch(group, teamA, teamB){
+    group.schedule.forEach(matchesDay =>{
+        matchesDay.forEach(match =>{
+            if (match.localTeam == teamA && match.awayTeam == teamB){
+                if(match.localGoals > match.awayGoals){
+                    return -1;
+                }else if (match.localGoals < match.awayGoals){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+            if (match.localTeam == teamB && match.awayTeam == teamA){
+                if(match.localGoals > match.awayGoals){
+                    return 1;
+                }else if (match.localGoals < match.awayGoals){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        })
+    })
+}
 
+
+function directMatchFinder(schedule, teamA, teamB){
+    for (let i = 0; i < schedule.length; i ++){
+        if (schedule[i].find(match => match.localTeam == teamA)){
+
+        }
+    }
+}
+
+function winnerPerGoalsFor(teamA, teamB){
+    if(teamA.goalsFor - teamA.goalsAgainst > teamB.goalsFor - teamB.goalsAgainst){
+        return -1;
+    }else if(teamA.goalsFor - teamA.goalsAgainst < teamB.goalsFor - teamB.goalsAgainst){
+        return 1;
+    }else{
+        return 0
+    }
+}
+
+function orderTeamNamesAlphabetically(teamA, teamB){
+    if (teamA < teamB){
+        return -1;
+    }else{
+        return 1;
+    }
+}
+
+function getRanking (group) {
+    group.teams.sort(function (teamA, teamB) {
+        if (teamA.points > teamB.points){
+            return -1
+        }else if (teamA.points < teamB.points){
+            return 1
+        }else{
+            //teamA.points == teamB.points
+            //enfrontament directe
+            const match = directMatchFinder(group.schedule, teamA.name, teamB.name);
+            const winnerDirectMatch = checkDirectMatch(group, teamA.name, teamB.name);
+            
+            if (winnerDirectMatch != 0){
+                return winnerDirectMatch
+            }else{
+                //diferencia de gols
+                const winnerPerGoalsFor = moreGoalsFor(teamA, teamB);
+                if (winnerPerGoalsFor != 0 ){
+                    return winnerPerGoalsFor;
+                }else{
+                    return orderTeamNamesAlphabetically(teamA.name, teamB.name);
+                }
+            } 
+        }
+    })
+}
 
