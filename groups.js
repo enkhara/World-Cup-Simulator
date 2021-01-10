@@ -1,5 +1,5 @@
 import {team, teamsNames} from './teams.js'
-import {auxLeague} from './index.js'
+
 
 export const _NUMBEROFTEAMSPERGROUP_ = 4;
 
@@ -76,7 +76,7 @@ function teamsGroup(index) {
 
     //codigo ascii para las letras mayúsculas
     groupTeams.name = String.fromCharCode( index + 65 );
-    auxLeague.push(groupTeams.name)
+    
     return groupTeams;
 }
 
