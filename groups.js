@@ -1,5 +1,5 @@
-import {teamsNames} from './teams.js'
-
+import {team, teamsNames} from './teams.js'
+import {auxLeague} from './index.js'
 
 export const _NUMBEROFTEAMSPERGROUP_ = 4;
 
@@ -38,21 +38,41 @@ const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 //     return group;
 // }
 
+// function teamsGroup2(index) {
+//     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
+//     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
+
+//     const groupTeams = Object.assign({}, group);
+//     groupTeams.teams = teamsNames.slice(indexSliceInit, indexSliceEnd);
+//     //codigo ascii para las letras mayúsculas
+//     groupTeams.name = String.fromCharCode( index + 65 );
+//     auxLeague.push(groupTeams.name)
+//     return groupTeams;
+// }
+//omplim group.teams amb l'objecte team
+function registerTeamsToTheGroup(group, teamsNames){
+    teamsNames.forEach(teamName =>{
+    const teamPerGroup = Object.assign({}, team);
+    teamPerGroup.name = teamName;
+    group.teams.push(teamPerGroup)
+    })
+}
+
 function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
 
-    const groupTeams = Object.assign({}, group);
-    groupTeams.teams = teamsNames.slice(indexSliceInit, indexSliceEnd);
+    const groupConstructor = Object.assign({}, group);
+    registerTeamsToTheGroup(groupConstructor, teamsNames.slice(indexSliceInit, indexSliceEnd))
+    //groupConstructor.teams = teamsNames.slice(indexSliceInit, indexSliceEnd);
     //codigo ascii para las letras mayúsculas
-    groupTeams.name = String.fromCharCode( index + 65 );
-    
-    return groupTeams;
+    groupConstructor.name = String.fromCharCode( index + 65 );
+    auxLeague.push(groupConstructor.name)
+    return groupConstructor;
 }
 
-
 //llena los grupos con en numero de equipos definido
-export default function creatorGroups(groups){
+export default function groupsCreator(groups){
 
     for (let i = 0 ; i < numberOfGroups; i++ ) {
         groups.push(teamsGroup(i));
