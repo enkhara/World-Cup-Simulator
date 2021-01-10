@@ -9,7 +9,7 @@ export const leagueTeams = [];
 export const auxLeague = [];
 function start() {
 
-    leagueTeamsCreator(leagueTeams);
+    //leagueTeamsCreator(leagueTeams);
     groupsCreator(groups);
     scheduleMatches(groups);
     
