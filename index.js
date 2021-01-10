@@ -2,14 +2,15 @@
 import creatorGroups from './groups.js';
 import {leagueTeamsCreator, scheduleMatches, startGroupStage} from './league.js';
 import {showGroupsAndTeams, showTitleWorldCupStageBegins} from './consoleLog.js';
+import groupsCreator from './groups.js';
 
 const groups = [];
 export const leagueTeams = [];
-
+export const auxLeague = [];
 function start() {
 
     leagueTeamsCreator(leagueTeams);
-    creatorGroups(groups);
+    groupsCreator(groups);
     scheduleMatches(groups);
     
     showGroupsAndTeams(groups);
@@ -21,3 +22,7 @@ function start() {
 }
 
 start();
+
+
+
+console.log('auxleagye',auxLeague)
