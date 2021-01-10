@@ -50,25 +50,34 @@ const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 //     return groupTeams;
 // }
 //omplim group.teams amb l'objecte team
-function registerTeamsToTheGroup(group, teamsNames){
+function registerTeamsToTheGroup( teamsNames){
+    
+    const groupConstructor = Object.assign({}, group); 
     teamsNames.forEach(teamName =>{
     const teamPerGroup = Object.assign({}, team);
     teamPerGroup.name = teamName;
-    group.teams.push(teamPerGroup)
+    groupConstructor.teams.push(teamPerGroup)
     })
+    return groupConstructor
 }
 
 function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
 
-    const groupConstructor = Object.assign({}, group);
-    registerTeamsToTheGroup(groupConstructor, teamsNames.slice(indexSliceInit, indexSliceEnd))
-    //groupConstructor.teams = teamsNames.slice(indexSliceInit, indexSliceEnd);
+    
+    const groupTeams = Object.assign({}, group);
+    groupTeams.teams = [];
+    teamsNames.slice(indexSliceInit, indexSliceEnd).forEach(teamName =>{
+        const teamPerGroup = Object.assign({}, team);
+        teamPerGroup.name = teamName;
+        groupTeams.teams.push(teamPerGroup);
+    });
+
     //codigo ascii para las letras mayúsculas
-    groupConstructor.name = String.fromCharCode( index + 65 );
-    auxLeague.push(groupConstructor.name)
-    return groupConstructor;
+    groupTeams.name = String.fromCharCode( index + 65 );
+    auxLeague.push(groupTeams.name)
+    return groupTeams;
 }
 
 //llena los grupos con en numero de equipos definido
