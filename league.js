@@ -1,5 +1,4 @@
 import { _NUMBEROFTEAMSPERGROUP_ } from './groups.js';
-import { team, teamsNames } from './teams.js';
 import { groups } from './index.js';
 import { showMatchesAndStandings } from './consoleLog.js';
 
@@ -10,17 +9,7 @@ const match ={
     awayGoals: 0
 }
 
-// //omplim l'array lliga amb l'objecte team amb la informació 
-// export function leagueTeamsCreator(leagueTeams) {
-//     //const leagueTeams =[];
-//     teamsNames.forEach(teamName =>{
-//         const teamPerLeague = Object.assign({}, team);
-//         teamPerLeague.name = teamName;
-//         leagueTeams.push(teamPerLeague)
-//     })
-//     return (leagueTeams);
-// }
-function matchScheme(matchNumber){
+export function matchScheme(matchNumber){
     const matchesScheme = [];
     for( let j = 0; j <matchNumber; j++){
         const matchScheme = Object.assign({}, match);
@@ -33,12 +22,6 @@ function allAgainstAll(group){
     group.schedule = [];
 
     for (let i = 0; i < group.teams.length-1; i++){
-        // const matchesPerDay = [];
-        
-        // for( let j = 0; j <group.teams.length/2; j++){
-        //     const matchPerDay = Object.assign({}, match);
-        //     matchesPerDay.push(matchPerDay);    
-        //}
         const matchesPerDay = matchScheme(group.teams.length/2);
         group.schedule.push(matchesPerDay);
     }
@@ -79,12 +62,11 @@ function setScheduleWithTeamsNames(group){
 // creen la planificació de partits per cada grup
 export function scheduleMatches(){ 
     groups.forEach(group =>{
-
         allAgainstAll(group);
         setScheduleWithTeamsNames(group);
-
     })    
 }
+
 //generador de gols
 function scoreGoals(){
     return Math.round(Math.random() * 5);
@@ -144,44 +126,6 @@ function playMatchesPerDay(matchesPerDay){
     }
 }
 
-// function getLeagueTeamsPerGroup(group){
-
-//     const index = group.name.charCodeAt(0);
-//     const indexSliceInit = index - 65;
-//     const indexSliceEnd = indexSliceInit + 4;
-
-//     const arrayOrdered = leagueTeams.slice(indexSliceInit, indexSliceEnd)
-
-//     arrayOrdered.sort(function (teamA, teamB) {
-//         if (teamA.points > teamB.points){
-//             return -1
-//         }else if (teamA.points < teamB.points){
-//             return 1
-//         }else{
-//             // group.schedule.forEach(match =>{
-//             //     if((match.localTeam == teamA && match.localTeam == teamB) || (match.localTeam == teamB && match.localTeam == teamA))
-//             //     console.log('partido de empate', match)
-//             // })
-//                 //
-//             //}el equipo ganadar en encuentro directro
-//             //else if {
-
-            
-//             //mejor diferencia de goles tenga
-//             //else
-//             //orden alfabético
-//             return 0
-//         }
-//     })
-
-
-
-//     return arrayOrdered
-// }
-
-//es juga la fase de grups
-
-
 function checkMatchResult(match){
     if (match.localGoals > match.awayGoals){
         return -1;
@@ -216,21 +160,6 @@ function checkDirectMatch(schedule, teamA, teamB){
     } while (found == false && i <schedule.length );
     return winner
 }
-
-// function searchMatch (matchesPerDay, teamA, teamB){
-//     const matches = [];
-//     matches.push(matchesPerDay.forEach(match => match.filter(localTeam => localTeam == teamA || localTeam == teamB)))
-// }
-
-// function directMatchFinder(schedule, teamA, teamB){
-// //     for (let i = 0; i < schedule.length; i ++){
-// //         if (schedule[i].find(match => match.localTeam == teamA)){
-        
-// //         }
-// //     }
-//     schedule.forEach(matchesPerDay => searchMatch(matchesPerDay, teamA, teamB))
-//     //const matchesFound = schedule.forEach(matchPerDay => match.filter(localTeam => localTeam == teamA || localTeam ==teamB))
-// }
         
 function teamWithMoreGoalsFor(teamA, teamB){
     if(teamA.goalsFor - teamA.goalsAgainst > teamB.goalsFor - teamB.goalsAgainst){
@@ -257,9 +186,7 @@ function getRanking (group) {
         }else if (teamA.points < teamB.points){
             return 1
         }else{
-            //teamA.points == teamB.points
             //enfrontament directe
-            // const match = directMatchFinder(group.schedule, teamA.name, teamB.name);
             const winnerDirectMatch = checkDirectMatch(group.schedule, teamA.name, teamB.name);
 
             if (winnerDirectMatch != 0){
@@ -270,6 +197,7 @@ function getRanking (group) {
                 if (winnerByGoalsFor != 0 ){
                     return winnerByGoalsFor;
                 }else{
+                    // ordre alfabètic
                     return orderTeamNamesAlphabetically(teamA.name, teamB.name);
                 }
             } 
@@ -282,7 +210,7 @@ export function startGroupStage(){
         groups.forEach(group => {
             playMatchesPerDay(group.schedule[i]);
             getRanking(group)
-            //consoleLog.js pinta els resulats
+
             showMatchesAndStandings(group,i);
         });
     }
