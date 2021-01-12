@@ -50,16 +50,16 @@ const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 //     return groupTeams;
 // }
 //omplim group.teams amb l'objecte team
-function registerTeamsToTheGroup( teamsNames){
+// function registerTeamsToTheGroup( teamsNames){
     
-    const groupConstructor = Object.assign({}, group); 
-    teamsNames.forEach(teamName =>{
-    const teamPerGroup = Object.assign({}, team);
-    teamPerGroup.name = teamName;
-    groupConstructor.teams.push(teamPerGroup)
-    })
-    return groupConstructor
-}
+//     const groupConstructor = Object.assign({}, group); 
+//     teamsNames.forEach(teamName =>{
+//     const teamPerGroup = Object.assign({}, team);
+//     teamPerGroup.name = teamName;
+//     groupConstructor.teams.push(teamPerGroup)
+//     })
+//     return groupConstructor
+// }
 
 function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
@@ -81,7 +81,7 @@ function teamsGroup(index) {
 }
 
 //llena los grupos con en numero de equipos definido
-export default function groupsCreator(groups){
+export function groupsCreator(groups){
 
     for (let i = 0 ; i < numberOfGroups; i++ ) {
         groups.push(teamsGroup(i));
@@ -90,3 +90,25 @@ export default function groupsCreator(groups){
 }
 
 
+function playOffSchedulerScheme (groupNumber){
+    const playOffSchedulerConstructor = [];
+    const matchesPerSide = [];
+    for (let i = 0; i < groupNumber; i++){
+        const matchPerSide = Object.assign({}, match);
+        
+    }
+}
+
+
+export function playOffGroupBuilder (groups){
+    const playOffScheduler = playOffSchedulerScheme(groups.length)
+    //const playOffScheduler = [];
+    
+    let j = 0;
+    for (let i =1; i <= groups.length; i = i+2){
+        groups[j]
+        groups[i]
+        //playOffScheduler[0].push(getTeams(group[j].team[0], group[i].team[1]));
+        j = j + 2;
+    }
+}
