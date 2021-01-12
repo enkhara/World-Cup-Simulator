@@ -113,16 +113,28 @@ function groupUpdateScore(matchResult){
     }
 }
 
+function playMatches(matchResult){
+    const localGoals = scoreGoals();
+    const awayGoals = scoreGoals();
+
+    matchResult.localGoals = localGoals;
+    matchResult.awayGoals = awayGoals;
+
+    return matchResult
+}
+
 // es juguen els partits establerts per cada dia
 function playMatchesPerDay(matchesPerDay){
     for (let j = 0; j < matchesPerDay.length; j++){
-        const localGoals = scoreGoals();
-        const awayGoals = scoreGoals();
+        // const localGoals = scoreGoals();
+        // const awayGoals = scoreGoals();
 
-        matchesPerDay[j].localGoals = localGoals;
-        matchesPerDay[j].awayGoals = awayGoals;
-
-        groupUpdateScore(matchesPerDay[j]);
+        // matchesPerDay[j].localGoals = localGoals;
+        // matchesPerDay[j].awayGoals = awayGoals;
+        
+        //groupUpdateScore(matcherPerDay[j]);
+        //matchesPerDay[j]= playMatchesPerDay(matchesPerDay[j])
+        groupUpdateScore(playMatches(matchesPerDay[j]));
     }
 }
 
