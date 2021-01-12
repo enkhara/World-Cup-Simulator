@@ -113,7 +113,7 @@ function groupUpdateScore(matchResult){
     }
 }
 
-function playMatches(matchResult){
+export function playMatches(matchResult){
     const localGoals = scoreGoals();
     const awayGoals = scoreGoals();
 
