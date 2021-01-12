@@ -1,8 +1,8 @@
 
-import creatorGroups from './groups.js';
-import {leagueTeamsCreator, scheduleMatches, startGroupStage} from './league.js';
-import {showGroupsAndTeams, showTitleWorldCupStageBegins} from './consoleLog.js';
-import groupsCreator from './groups.js';
+//import creatorGroups from './groups.js';
+import { scheduleMatches, startGroupStage } from './league.js';
+import { showGroupsAndTeams, showTitleWorldCupStageBegins } from './consoleLog.js';
+import { groupsCreator, playOffGroupBuilder } from './groups.js';
 
 export const groups = [];
 //export const leagueTeams = [];
@@ -24,7 +24,16 @@ function start() {
     startGroupStage();
 
 
-    showTitleWorldCupStageBegins('COMIENZO DE LA FASE DE ELIMINATORIAS')
+    showTitleWorldCupStageBegins('COMIENZO DE LA FASE DE ELIMINATORIAS');
+    playOffGroupBuilder(groups);
+
+    roundOfSixteen();
+    quarterFinals();
+    semifinals();
+    thirdAndFourthPlace();
+    final();
+
+    showWorldChampionTeam();
 }
 
 start();
