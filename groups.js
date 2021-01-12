@@ -1,4 +1,5 @@
-import {team, teamsNames} from './teams.js'
+import { team, teamsNames } from './teams.js'
+import { matchScheme } from './league.js'
 
 
 export const _NUMBEROFTEAMSPERGROUP_ = 4;
@@ -90,25 +91,30 @@ export function groupsCreator(groups){
 }
 
 
-function playOffSchedulerScheme (groupNumber){
-    const playOffSchedulerConstructor = [];
-    const matchesPerSide = [];
-    for (let i = 0; i < groupNumber; i++){
-        const matchPerSide = Object.assign({}, match);
+// function playOffSchedulerScheme (groupNumber){
+//     const playOffSchedulerConstructor = [];
+//     const matchesPerSide = [];
+//     for (let i = 0; i < groupNumber; i++){
+//         const matchPerSide = Object.assign({}, match);
         
-    }
-}
+//     }
+// }
 
 
 export function playOffGroupBuilder (groups){
-    const playOffScheduler = playOffSchedulerScheme(groups.length)
     //const playOffScheduler = [];
-    
-    let j = 0;
-    for (let i =1; i <= groups.length; i = i+2){
-        groups[j]
-        groups[i]
-        //playOffScheduler[0].push(getTeams(group[j].team[0], group[i].team[1]));
+    //const matchesScheduleScheme = 
+    const playOffScheduler = matchScheme(groups.length);
+    let index = 0;
+    let j = 1;
+    for (let i =0; i <= groups.length-1; i = i+2){
+        
+        playOffScheduler[index].localTeam = groups[i].teams[0].name
+        playOffScheduler[index].awayTeam = groups[j].teams[1].name
+        playOffScheduler[index+4].awayTeam = groups[i].teams[1].name
+        playOffScheduler[index+4].localTeam = groups[j].teams[0].name
+        
+        index ++;
         j = j + 2;
-    }
+    } return playOffScheduler
 }
