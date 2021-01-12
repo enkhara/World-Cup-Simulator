@@ -11,7 +11,7 @@ export function showGroupsAndTeams(groups){
         console.log(`\nGroup ${group.name}`)
         dividingLine('-')
         group.teams.forEach(team  =>{
-            console.log(team)
+            console.log(team.name)
         });
         for (let i = 0; i < group.teams.length - 1; i++){
             console.log(`\nJornada ${i+1}:`)
@@ -31,11 +31,9 @@ export function showTitleWorldCupStageBegins(title){
     dividingLine('=', titleLenght + 14);
 }
 
-export function showMatchesAndStandings(group,  leagueTeams, jornada){
+export function showMatchesAndStandings(group, jornada){
 
-    const index = group.name.charCodeAt(0);
-    const indexSliceInit = index - 65;
-    const indexSliceEnd = indexSliceInit + 4;
+    
     //console.log(matchesPerDay,'\n-----------------------------')
     console.log(`\nGrupo ${group.name} - Jornada ${jornada + 1}:`);
     dividingLine('-');
@@ -43,9 +41,8 @@ export function showMatchesAndStandings(group,  leagueTeams, jornada){
         console.log(`${match.localTeam} ${match.localGoals} - ${match.awayGoals} ${match.awayTeam}`)
     });
 
-    
-
-    console.table(leagueTeams.slice(indexSliceInit, indexSliceEnd).map(team =>{
+    //leagueTeams.slice(indexSliceInit, indexSliceEnd)
+    console.table(group.teams.map(team =>{
         return{
             Equipo: team.name,
             Puntos: team.points,
@@ -54,5 +51,16 @@ export function showMatchesAndStandings(group,  leagueTeams, jornada){
             DiferenciaDeGoles: team.goalsFor - team.goalsAgainst
 
         }
-    }));
+    }))
+
+    // console.table(leagueTeams.map(team =>{
+    //     return{
+    //         Equipo: team.name,
+    //         Puntos: team.points,
+    //         GolesAFavor: team.goalsFor,
+    //         GolesEnContra: team.goalsAgainst,
+    //         DiferenciaDeGoles: team.goalsFor - team.goalsAgainst
+
+    //     }
+    // }));
 }
