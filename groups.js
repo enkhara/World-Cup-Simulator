@@ -105,16 +105,19 @@ export function playOffGroupBuilder (groups){
     //const playOffScheduler = [];
     //const matchesScheduleScheme = 
     const playOffScheduler = matchScheme(groups.length);
-    let index = 0;
+    let indexGroupA = 0;
+    let indexGroupB = groups.length / 2;
     let j = 1;
     for (let i =0; i <= groups.length-1; i = i+2){
         
-        playOffScheduler[index].localTeam = groups[i].teams[0].name
-        playOffScheduler[index].awayTeam = groups[j].teams[1].name
-        playOffScheduler[index+4].awayTeam = groups[i].teams[1].name
-        playOffScheduler[index+4].localTeam = groups[j].teams[0].name
+        playOffScheduler[indexGroupA].localTeam = groups[i].teams[0].name
+        playOffScheduler[indexGroupA].awayTeam = groups[j].teams[1].name
+        playOffScheduler[indexGroupB].awayTeam = groups[i].teams[1].name
+        playOffScheduler[indexGroupB].localTeam = groups[j].teams[0].name
         
-        index ++;
+        indexGroupA ++;
+        indexGroupB ++;
+
         j = j + 2;
     } return playOffScheduler
 }
