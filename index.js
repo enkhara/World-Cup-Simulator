@@ -3,6 +3,7 @@
 import { scheduleMatches, startGroupStage } from './league.js';
 import { showGroupsAndTeams, showTitleWorldCupStageBegins } from './consoleLog.js';
 import { groupsCreator, playOffGroupBuilder } from './groups.js';
+import { roundOfSixteen } from './playoff.js';
 
 export const groups = [];
 //export const leagueTeams = [];
@@ -25,9 +26,9 @@ function start() {
 
 
     showTitleWorldCupStageBegins('COMIENZO DE LA FASE DE ELIMINATORIAS');
-    playOffGroupBuilder(groups);
+    const matchesPlayOff = playOffGroupBuilder(groups);
 
-    roundOfSixteen();
+    roundOfSixteen(matchesPlayOff);
     quarterFinals();
     semifinals();
     thirdAndFourthPlace();
