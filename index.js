@@ -1,43 +1,47 @@
 
-//import creatorGroups from './groups.js';
 import { scheduleMatches, startGroupStage } from './league.js';
-import { showGroupsAndTeams, showTitleWorldCupStageBegins } from './consoleLog.js';
+import { showGroupsAndTeams, showTitleWorldCupStageBegins, showPlayOffRound, showWinnerWorldChampionTeam } from './consoleLog.js';
 import { groupsCreator, playOffGroupBuilder } from './groups.js';
-import { roundOfSixteen } from './playoff.js';
+import { roundOfSixteen, playPlayOffRound } from './playoff.js';
 
 export const groups = [];
-//export const leagueTeams = [];
-//export const auxLeague = [];
-function start() {
 
-    //leagueTeamsCreator(leagueTeams);
-    // groupsCreator(groups);
-    // scheduleMatches(groups);
-    
-    // showGroupsAndTeams(groups);
+function startWorldCupSimulator() {
+
     groupsCreator(groups);
     scheduleMatches();
     
     showGroupsAndTeams(groups);
 
     showTitleWorldCupStageBegins('COMIENZA EL MUNDIAL');
-    //startGroupStage(groups);
     startGroupStage();
 
 
     showTitleWorldCupStageBegins('COMIENZO DE LA FASE DE ELIMINATORIAS');
     const matchesPlayOff = playOffGroupBuilder(groups);
 
-    roundOfSixteen(matchesPlayOff);
-    quarterFinals();
-    semifinals();
-    thirdAndFourthPlace();
-    final();
+    showPlayOffRound('OCTAVOS DE FINAL');
+    const winnersRoundOfSixteen = roundOfSixteen(matchesPlayOff);
+    
+    showPlayOffRound('CUARTOS DE FINAL');
+    const winnersRoundOfQuarters = playPlayOffRound(winnersRoundOfSixteen);
+    
+    showPlayOffRound('SEMIFINALES');
+    const winnersSemifinals = playPlayOffRound(winnersRoundOfQuarters);
+    const thirdAndFourthPlace = winnersRoundOfQuarters.filter( winnerRoundOfQuarters => 
+        winnerRoundOfQuarters != winnersSemifinals[0] && winnerRoundOfQuarters != winnersSemifinals[1]);
+    
+    showPlayOffRound('TERCER Y CUARTO PUESTO');
+    playPlayOffRound(thirdAndFourthPlace);
+    
+    showPlayOffRound('FINAL');
+    const winner = playPlayOffRound(winnersSemifinals);
+    
+    showWinnerWorldChampionTeam(winner);
 
-    showWorldChampionTeam();
 }
 
-start();
+startWorldCupSimulator();
 
 
 
