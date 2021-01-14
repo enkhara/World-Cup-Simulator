@@ -58,7 +58,7 @@ export function showPlayOffRound(title){
     console.log(`\n${'='.repeat(5)} ${title} ${'='.repeat(5)}\n`)
 }
 
-export function showMatchesAndWinnerPerRound(matchesPlayOff, winnersPerRound){
+export function showMatchesAndWinnersPerRound(matchesPlayOff, winnersPerRound){
     for(let i = 0; i < matchesPlayOff.length; i ++){
         console.log(`${matchesPlayOff[i].localTeam} ${matchesPlayOff[i].localGoals} - ${matchesPlayOff[i].awayGoals} ${matchesPlayOff[i].awayTeam} => ${winnersPerRound[i]}`)
     }
