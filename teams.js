@@ -2,16 +2,23 @@
 //creem objecte equip
 export const team = {
     name: null,
-    pointsPerWin: 0,
-    pointsPerDraw: 0,
-    pointsPerLose: 0,
+    points: 0,
     goalsFor: 0,
     goalsAgainst: 0
 };
 
-// noms dels equips que participen a la lliga
+//noms dels equips que participen a la lliga
+// export const teamsNames = [
+//     'España',  'Australia', 'Chile', 'Paises Bajos',
+//     'Brasil', 'Croacia', 'Mexico', 'Camerún'
+// ];
+
+// export const teamsNames = [
+//     'España',  'Australia', 'Chile', 'Paises Bajos'
+// ];
+
 export const teamsNames = [
-    'Espana',  'Australia', 'Chile', 'Paises Bajos',
+    'España',  'Australia', 'Chile', 'Paises Bajos',
     'Brasil', 'Croacia', 'Mexico', 'Camerún',
     'Colombia', 'Grecia',  'Costa de Marfil', 'Japón',
     'Uruguay', 'Costa Rica', 'Inglaterra','Italia', 
