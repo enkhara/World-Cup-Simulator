@@ -7,16 +7,6 @@ export const team = {
     goalsAgainst: 0
 };
 
-//noms dels equips que participen a la lliga
-// export const teamsNames = [
-//     'España',  'Australia', 'Chile', 'Paises Bajos',
-//     'Brasil', 'Croacia', 'Mexico', 'Camerún'
-// ];
-
-// export const teamsNames = [
-//     'España',  'Australia', 'Chile', 'Paises Bajos'
-// ];
-
 export const teamsNames = [
     'España',  'Australia', 'Chile', 'Paises Bajos',
     'Brasil', 'Croacia', 'Mexico', 'Camerún',
