@@ -1,12 +1,13 @@
 
-import {playMatches} from './league.js'
+import { showMatchesAndWinnersPerRound } from './consoleLog.js';
+import { playMatches, matchScheme } from './league.js';
 
 function playPlayOffMatch(match){
     playMatches(match);
         let drawMatch = true;
         while (drawMatch) {
             if (match.localGoals == match.awayGoals){
-                    playMatches(match);
+                playMatches(match);
             }else {
                 drawMatch = false;
             }
@@ -23,11 +24,34 @@ function selectWinnersPerRound(match){
     return teamWinner;
 }
 
-export function roundOfSixteen(matchesPlayOff){
-    const winnersRoundOfSixteen = [];
+function playRound(matchesPlayOff, winnersPerRound){
     matchesPlayOff.forEach(matchPlayOff =>{
         playPlayOffMatch(matchPlayOff);
-        winnersRoundOfSixteen.push(selectWinnersPerRound(matchPlayOff));
+        winnersPerRound.push(selectWinnersPerRound(matchPlayOff));
     })
-    return winnersRoundOfSixteen;
+    return winnersPerRound;
+
 }
+
+export function roundOfSixteen(matchesPlayOff){
+    const winnersRoundOffSixteen = [];
+    playRound(matchesPlayOff, winnersRoundOffSixteen);
+    showMatchesAndWinnersPerRound(matchesPlayOff, winnersRoundOffSixteen);
+    return winnersRoundOffSixteen;
+}
+
+export function playPlayOffRound(winnerLastRound){
+    const winnersPerRound = [];
+    const matchesPerRound = matchScheme(winnerLastRound.length/2);
+    let j = 0;
+    for(let i = 0; i < matchesPerRound.length; i ++) {
+        matchesPerRound[i].localTeam = winnerLastRound[j];
+        matchesPerRound[i].awayTeam = winnerLastRound[j+1];
+        j += 2;
+    }
+    playRound(matchesPerRound, winnersPerRound);
+    showMatchesAndWinnersPerRound(matchesPerRound, winnersPerRound);
+
+    return winnersPerRound;
+}
+
