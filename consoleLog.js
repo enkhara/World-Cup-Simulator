@@ -33,15 +33,12 @@ export function showTitleWorldCupStageBegins(title){
 
 export function showMatchesAndStandings(group, jornada){
 
-    
-    //console.log(matchesPerDay,'\n-----------------------------')
     console.log(`\nGrupo ${group.name} - Jornada ${jornada + 1}:`);
     dividingLine('-');
     group.schedule[jornada].forEach(match => {
         console.log(`${match.localTeam} ${match.localGoals} - ${match.awayGoals} ${match.awayTeam}`)
     });
-
-    //leagueTeams.slice(indexSliceInit, indexSliceEnd)
+    
     console.table(group.teams.map(team =>{
         return{
             Equipo: team.name,
@@ -49,7 +46,6 @@ export function showMatchesAndStandings(group, jornada){
             GolesAFavor: team.goalsFor,
             GolesEnContra: team.goalsAgainst,
             DiferenciaDeGoles: team.goalsFor - team.goalsAgainst
-
         }
     }))
 }
