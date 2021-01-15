@@ -137,3 +137,9 @@ showPlayOffRound() muestra la etapa en la que nos encontramos dentro de la fase 
 showMatchesAndWinnersPerRound() se encarga de mostrar el resultado de los partidos y el ganador de cada uno
 
 showWinnerWorldChampionTeam() muestra el ganador de la copa del mundo.
+
+## Módulos
+
+Para el simulador, se ha usado una promesa para cargar los equipos desde un json externo, para ello es necesario instalar el modulo axios desde el terminal.
+
+`npm i axios`
