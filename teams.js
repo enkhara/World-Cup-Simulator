@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 //creem objecte equip
 export const team = {
     name: null,
@@ -19,30 +19,26 @@ export const team = {
 // ];
 
 function getTeamsNamesWithPromise() {
-    const url = 'https://raw.githubusercontent.com/openfootball/world-cup.json/master/2018/worldcup.teams.json'
-    //const url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.clubs.json'
+    const url = 'https://raw.githubusercontent.com/openfootball/world-cup.json/master/2018/worldcup.teams.json';
     console.log(url)
     return new Promise(function(resolve, reject){
         axios.get(url).then(function(response){
-            //resolve(response.data.clubs)
-            resolve(response.data.teams)
-            console.log(response)
+            resolve(response.data.teams);
         }, function(error){
-            reject(error)
-            console.log(error)
+            reject(error);
         })
     })
 }
 
-export const teamsNames = []
+export const teamsNames = [];
 
 try{
-    const teams= await getTeamsNamesWithPromise()
+    const teams= await getTeamsNamesWithPromise();
     teams.forEach(team =>{
         teamsNames.push(team.name);
     })
 }catch(error){
-    console.log('El archivo con los nombres de los equipos no se ha podido cargar =>', error)
+    console.log('El archivo con los nombres de los equipos no se ha podido cargar =>', error);
 }
 
 
