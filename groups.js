@@ -28,23 +28,20 @@ teamsNames.shuffle();
 //calculem número de grups que shan de crear
 const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 
-
 function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
-
-    
     const groupTeams = Object.assign({}, group);
+    
     groupTeams.teams = [];
     teamsNames.slice(indexSliceInit, indexSliceEnd).forEach(teamName =>{
         const teamPerGroup = Object.assign({}, team);
         teamPerGroup.name = teamName;
         groupTeams.teams.push(teamPerGroup);
     });
-
     //codigo ascii para las letras mayúsculas
     groupTeams.name = String.fromCharCode( index + 65 );
-    
+
     return groupTeams;
 }
 
