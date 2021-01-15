@@ -28,7 +28,7 @@ function startWorldCupSimulator() {
     const thirdAndFourthPlace = winnersRoundOfQuarters.filter( winnerRoundOfQuarters => 
         winnerRoundOfQuarters != winnersSemifinals[0] && winnerRoundOfQuarters != winnersSemifinals[1]);
     
-        showPlayOffRound('TERCER Y CUARTO PUESTO');
+    showPlayOffRound('TERCER Y CUARTO PUESTO');
     playPlayOffRound(thirdAndFourthPlace);
     
     showPlayOffRound('FINAL');
@@ -36,8 +36,10 @@ function startWorldCupSimulator() {
     
     showWinnerWorldChampionTeam(winner);
 }
-
-startWorldCupSimulator();
-
+try {
+    startWorldCupSimulator();
+} catch (error){
+    console.log('Se ha producido un ERROR =>', error)
+}
 
 
