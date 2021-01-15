@@ -126,14 +126,6 @@ export function playMatches(matchResult){
 // es juguen els partits establerts per cada dia
 function playMatchesPerDay(matchesPerDay){
     for (let j = 0; j < matchesPerDay.length; j++){
-        // const localGoals = scoreGoals();
-        // const awayGoals = scoreGoals();
-
-        // matchesPerDay[j].localGoals = localGoals;
-        // matchesPerDay[j].awayGoals = awayGoals;
-        
-        //groupUpdateScore(matcherPerDay[j]);
-        //matchesPerDay[j]= playMatchesPerDay(matchesPerDay[j])
         groupUpdateScore(playMatches(matchesPerDay[j]));
     }
 }
@@ -153,22 +145,18 @@ function checkDirectMatch(schedule, teamA, teamB){
     let found = false;
     let i = 0;
     do {
-        
         for (let j = 0; j < schedule[i].length; j++) {
             if (schedule[i][j].localTeam == teamA || schedule[i][j].localTeam == teamB){
                 if (schedule[i][j].awayTeam == teamB || schedule[i][j].awayTeam == teamA){
                     winner = checkMatchResult(schedule[i][j])
-                    
                     if (schedule[i][j].localTeam == teamB){
                         winner *= -1;
                     }
-                    
                     found = true;
                 }
             }
         }
         i ++;
-        
     } while (found == false && i <schedule.length );
     return winner
 }
