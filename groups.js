@@ -1,5 +1,5 @@
 import { team, teamsNames } from './teams.js'
-import { matchScheme } from './league.js'
+import { matchScheme } from './groupstage.js'
 
 
 export const _NUMBEROFTEAMSPERGROUP_ = 4;
@@ -32,7 +32,7 @@ function teamsGroup(index) {
     const indexSliceInit = index * _NUMBEROFTEAMSPERGROUP_;
     const indexSliceEnd = _NUMBEROFTEAMSPERGROUP_ + indexSliceInit;
     const groupTeams = Object.assign({}, group);
-    
+
     groupTeams.teams = [];
     teamsNames.slice(indexSliceInit, indexSliceEnd).forEach(teamName =>{
         const teamPerGroup = Object.assign({}, team);

@@ -1,6 +1,6 @@
 
 import { showMatchesAndWinnersPerRound } from './consoleLog.js';
-import { playMatches, matchScheme } from './league.js';
+import { playMatches, matchScheme } from './groupstage.js';
 
 function playPlayOffMatch(match){
     playMatches(match);
@@ -34,10 +34,10 @@ function playRound(matchesPlayOff, winnersPerRound){
 }
 
 export function roundOfSixteen(matchesPlayOff){
-    const winnersRoundOffSixteen = [];
-    playRound(matchesPlayOff, winnersRoundOffSixteen);
-    showMatchesAndWinnersPerRound(matchesPlayOff, winnersRoundOffSixteen);
-    return winnersRoundOffSixteen;
+    const winnersRoundOfSixteen = [];
+    playRound(matchesPlayOff, winnersRoundOfSixteen);
+    showMatchesAndWinnersPerRound(matchesPlayOff, winnersRoundOfSixteen);
+    return winnersRoundOfSixteen;
 }
 
 export function playPlayOffRound(winnerLastRound){
