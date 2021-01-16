@@ -4,18 +4,18 @@ import { matchScheme } from './groupstage.js'
 
 export const _NUMBEROFTEAMSPERGROUP_ = 4;
 
-Array.prototype.shuffle = function()
-{
-    var i = this.length;
-	while (i)
-	{
-        var j = Math.floor(Math.random() * i);
-		var t = this[--i];
-		this[i] = this[j];
-		this[j] = t;
-	}
-	return this;
-}
+// Array.prototype.shuffle = function()
+// {
+//     var i = this.length;
+// 	while (i)
+// 	{
+//         var j = Math.floor(Math.random() * i);
+// 		var t = this[--i];
+// 		this[i] = this[j];
+// 		this[j] = t;
+// 	}
+// 	return this;
+// }
 
 export const group = {
     name: null,
@@ -24,7 +24,7 @@ export const group = {
     }
 
 //barrejem equips
-teamsNames.shuffle();
+//teamsNames.shuffle();
 //calculem número de grups que shan de crear
 const numberOfGroups = teamsNames.length / _NUMBEROFTEAMSPERGROUP_;
 
