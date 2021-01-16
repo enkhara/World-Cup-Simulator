@@ -69,22 +69,26 @@ Aquí definiremos la función startWorldCupSimulator() que será la encargada de
 
 ### teams.js
 
-Aquí definiremos un array teamsNames con los nombres de los equipos participantes en el mundial.
+En esta parte definimos en primer lugar la prototipo shuffle para mezclar los nombres de los paises, de este modo en cada ejecución serán seleccionados de forma aleatoria 32 paises de entre 250.
+
+La función getTeamsNamesWithPromise(), nos servirá para realizar una petición GET, para cargar los nombres de los paises de forma asíncrona mediante una promesa.
+
+Una vez tengamos la información la asignaremos a un array que despues será mezclado con el con la función definida en el prototipo del array shuffle(), y con un forEach nos quedaremos con .
+Seguidamente asignaremos con un forEach los primero 32 paises, a un array teamsNames,
+que serán los nombres de los equipos participantes en el mundial.
 
 También definiremos el objeto team que contendrá el nombre del equipo, los puntos acumulados, los goles a favor y los goles en contra.
 En esta parte del programa se inicializara el nombre a null y el resto de las propiedades a 0.
 
 ### groups.js
 
-En esta parte definimos en primer lugar la prototipo shuffle para mezclar los equipos y crear de forma aleatoria los grupos de la fase de grupos.
-
-También definimos el objeto group con nombre, equipos, array de los nombres de los equipos, schedule, array donde más adelante insertaremos las jornadas (schedule.lenght) y los partidos, objeto match, por jornada
+Definimos el objeto group con nombre, equipos, array de los nombres de los equipos, schedule, array donde más adelante insertaremos las jornadas (schedule.lenght) y los partidos, objeto match, por jornada
 
 Las funciones implementadas en esta parte serán:
 
 #### Para la fase de grupos
 
-- groupsCreator, que creará los grupos y añadira a group.team el nombre de los equipos de cada grupo aleatoriamente, y el nombre de cada grupo, letras mayúsculas siguiendo el alfabeto.
+- groupsCreator, que creará los grupos y añadira a group.team el nombre de los equipos de cada grupo, y el nombre de cada grupo, letras mayúsculas siguiendo el alfabeto.
 
 #### Para la fase eliminatoria
 
